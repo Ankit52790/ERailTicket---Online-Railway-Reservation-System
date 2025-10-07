@@ -1,0 +1,5 @@
+.env# Ignore environment and config files
+.env
+*.sqlite
+__pycache__/
+*.pyc
