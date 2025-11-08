@@ -33,7 +33,7 @@ Admins can manage trains, view bookings, and monitor system operations from a se
 
 | Category | Technologies Used |
 |-----------|-------------------|
-| **Frontend** | HTML, CSS, JavaScript, Bootstrap |
+| **Frontend** | Streamlit|
 | **Backend** | Python (Flask Framework) |
 | **Database** | MySQL |
 | **Email Service** | Gmail SMTP (App Passwords) |
