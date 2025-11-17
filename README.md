@@ -1,45 +1,69 @@
-# 🛤️ ERailTicket – Online Railway Ticket Booking System
+# ERailTicket – Railway Reservation System 🚆
 
-**ERailTicket** is a full-stack web-based railway reservation system built with **Python (Flask)** and **MySQL**.  
-It enables users to search for trains, book tickets, and receive booking confirmations via **email verification**.  
-Admins can manage trains, view bookings, and monitor system operations from a secure dashboard.
-
----
-
-## 🚀 Features
-
-✅ **User Features**
-- User Registration & Login with Email Verification (via Gmail SMTP)
-- Search trains by source and destination
-- Book, cancel, and view tickets
-- Automatic seat availability update
-- Responsive design (Bootstrap + CSS)
-
-✅ **Admin Features**
-- Add, update, or delete trains
-- Manage bookings and passenger details
-- View train availability in real-time
-- Monitor total revenue & ticket status
-
-✅ **System Features**
-- Secure authentication system
-- Relational database (MySQL)
-- Email verification system (SMTP)
-- Modular code structure with Flask blueprints
+ERailTicket is a **Streamlit-based Railway Reservation System** inspired by the **IRCTC** UI.  
+It supports **user sign up & login with email verification, admin train management, and seat booking/cancellation** using SQLite.
 
 ---
 
-## 🧱 Tech Stack
+## ✨ Features
 
-| Category | Technologies Used |
-|-----------|-------------------|
-| **Frontend** | Streamlit|
-| **Backend** | Python (Flask Framework) |
-| **Database** | MySQL |
-| **Email Service** | Gmail SMTP (App Passwords) |
-| **Tools** | VS Code, Git, pip, Flask-Mail |
+### 👤 Authentication & Security
+- User **sign up / login** with **hashed passwords (PBKDF2 + salt)**
+- Email-based **account verification** using one-time verification codes
+- **Forgot password** flow with reset codes
+- Separate roles: **Admin** and **User**
+
+### 🚆 Train & Seat Management
+- Admin can:
+  - **Add trains** with train number, name, source, destination, and departure date
+  - **View all trains** in a table view
+  - **Delete trains**, which also removes their seat tables
+- Automatic seat table creation (`1–50` seats per train)
+- Seats categorized as **Window / Aisle / Middle** based on seat number
+
+### 🎫 Ticket Booking / Cancellation
+- Users can:
+  - Book tickets by selecting **Train Number**, **Seat Type**, and passenger details
+  - System automatically picks the **next available seat** of that type
+  - Cancel tickets by train number + seat number
+- Detailed seat view showing:
+  - Seat number, type, booked/unbooked, passenger name, age, gender
+
+### 🔍 Search & View
+- Search trains:
+  - By **train number** or **From–To + date**
+- View:
+  - All trains
+  - Seat layout for a specific train
+
+### 🎨 IRCTC-style UI
+- Built with **Streamlit**
+- Custom CSS for:
+  - Branded header with **ERailTicket logo**
+  - Card-based layout
+  - Primary IRCTC-like blue + orange theme
+- Responsive layout with Streamlit tabs
 
 ---
 
-## 📂 Folder Structure
+## 🏗️ Tech Stack
 
+- **Python 3**
+- **Streamlit** – frontend + app framework
+- **SQLite** – local database
+- **Pandas** – tabular data display
+- **Pillow (PIL)** – logo handling
+- **smtplib + python-dotenv** – email verification using environment variables
+
+---
+
+## 📂 Project Structure
+
+```text
+ERailTicket/
+├── app.py                  # Main Streamlit app
+├── logo.png                # ERailTicket logo
+├── README.md               # Project documentation  
+├── .gitignore              # Git ignore rules
+└── .streamlit/
+    └── secrets.toml        # (optional) Streamlit Cloud / deployment secrets
