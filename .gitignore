@@ -1,5 +1,24 @@
-.env# Ignore environment and config files
-.env
-*.sqlite
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*.pyo
+*.pyd
+*.log
+
+# Virtual env
+venv/
+.env/
+.env.* 
+
+# SQLite database
+*.db
+railway_system
+railway_system.db
+
+# Streamlit
+.streamlit/secrets.toml
+
+# OS files
+.DS_Store
+Thumbs.db
+
