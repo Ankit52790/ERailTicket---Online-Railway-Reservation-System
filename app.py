@@ -716,10 +716,79 @@ if is_admin:
 # ----------------
 with tab_map["🏠 Home"]:
     st.markdown("<div class='app-card'>", unsafe_allow_html=True)
-    st.markdown("### 🏠 Dashboard")
-    st.write("Welcome to ERailTicket — streamlined train booking.")
-    st.write("Use the **Book Ticket** tab to reserve seats or **Search Trains** to find routes.")
+
+    c1, c2 = st.columns([1.2, 1])
+
+    # ---- LEFT: Text content ----
+    with c1:
+        st.markdown("### 🏠 Dashboard")
+        st.markdown(
+            """
+            Welcome to **ERailTicket**, your smart companion for hassle-free railway
+            reservations.
+
+            - Search and compare trains across routes  
+            - Reserve seats with preference-based allocation  
+            - Manage bookings and cancellations in a few clicks  
+            - Admins can efficiently manage trains and seat layouts  
+            """
+        )
+
+        st.info(
+            "💡 Tip: Use the **Book Ticket** tab to reserve seats or **Search Trains** to "
+            "plan your next journey."
+        )
+
+    # ---- RIGHT: Live hero image ----
+    with c2:
+        try:
+            hero_img = Image.open("hero_train.jpg")   # put this image next to app.py
+            st.image(
+                hero_img,
+                caption="Plan, book, and manage journeys with ERailTicket.",
+                use_container_width=True,
+            )
+        except Exception:
+            st.markdown(
+                "<p style='color: grey; font-size: 13px;'>"
+                "Add <code>hero_train.jpg</code> in the project root (same folder as <code>app.py</code>) "
+                "to display the dashboard banner image."
+                "</p>",
+                unsafe_allow_html=True,
+            )
+
+    st.markdown("---")
+
+    # ---- Quick actions section ----
+    st.markdown("#### 🚉 Quick actions")
+    ca1, ca2, ca3 = st.columns(3)
+
+    with ca1:
+        st.markdown(
+            """
+            **🎫 Book Ticket**  
+            Configure passenger details, seat type, and confirm reservations instantly.
+            """
+        )
+
+    with ca2:
+        st.markdown(
+            """
+            **🔍 Search Trains**  
+            Look up trains by **number** or **origin–destination–date** before booking.
+            """
+        )
+
+    with ca3:
+        st.markdown(
+            """
+            **🪑 View Seats**  
+            Inspect the live seat map to see which seats are booked or available.
+            """
+        )
+
     st.markdown("</div>", unsafe_allow_html=True)
+
 
 with tab_map["🎫 Book Ticket"]:
     st.markdown("<div class='app-card'>", unsafe_allow_html=True)
