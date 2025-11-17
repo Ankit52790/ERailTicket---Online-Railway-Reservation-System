@@ -849,3 +849,4 @@ st.markdown("---")
 st.caption("Theme: IRCTC-inspired. Email features require SMTP in Streamlit secrets (see sidebar note).")
 
 # (do not close DB connection for app lifetime)
+
