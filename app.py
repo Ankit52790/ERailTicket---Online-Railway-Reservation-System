@@ -16,14 +16,8 @@ import io
 import ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from dotenv import load_dotenv
+
 import os
-
-# Load .env file
-load_dotenv()
-
-EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
-EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 
 def send_verification_email(to_email, verification_code):
     try:
@@ -790,6 +784,7 @@ with tab_map["🏠 Home"]:
     st.markdown("</div>", unsafe_allow_html=True)
 
 
+
 with tab_map["🎫 Book Ticket"]:
     st.markdown("<div class='app-card'>", unsafe_allow_html=True)
     st.markdown("### 🎫 Book Ticket")
@@ -827,6 +822,35 @@ with tab_map["❌ Cancel Ticket"]:
         else:
             st.error("Enter Train Number and Seat Number.")
     st.markdown("</div>", unsafe_allow_html=True)
+    
+    # ======================
+# Train Search Utilities  (ADD THIS)
+# ======================
+
+def search_train_by_train_number(train_no: str):
+    cur = c.execute(
+        "SELECT train_number, train_name, departure_date, starting_destination, ending_destination "
+        "FROM trains WHERE train_number LIKE ?",
+        (f"%{train_no}%",)
+    )
+    return cur.fetchall()
+
+
+def search_trains_by_destinations(src: str, dest: str, dep_date=None):
+    if dep_date:
+        cur = c.execute(
+            "SELECT train_number, train_name, departure_date, starting_destination, ending_destination "
+            "FROM trains WHERE starting_destination LIKE ? AND ending_destination LIKE ? AND departure_date=?",
+            (f"%{src}%", f"%{dest}%", dep_date.isoformat())
+        )
+    else:
+        cur = c.execute(
+            "SELECT train_number, train_name, departure_date, starting_destination, ending_destination "
+            "FROM trains WHERE starting_destination LIKE ? AND ending_destination LIKE ?",
+            (f"%{src}%", f"%{dest}%")
+        )
+    return cur.fetchall()
+
 
 with tab_map["🔍 Search Trains"]:
     st.markdown("<div class='app-card'>", unsafe_allow_html=True)
