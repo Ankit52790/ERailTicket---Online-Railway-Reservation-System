@@ -19,39 +19,6 @@ from email.mime.multipart import MIMEMultipart
 
 import os
 
-def send_verification_email(to_email, verification_code):
-    try:
-        msg = MIMEMultipart("alternative")
-        msg["Subject"] = "Railway Reservation - Email Verification"
-        msg["From"] = EMAIL_ADDRESS
-        msg["To"] = to_email
-
-        html = f"""
-        <html>
-        <body>
-            <h2>Welcome to Railway Reservation System 🚆</h2>
-            <p>Your verification code is:</p>
-            <h3 style='color: #2E86C1;'>{verification_code}</h3>
-            <p>Please enter this code in the app to activate your account.</p>
-            <p>Thank you,<br>Railway Reservation Team</p>
-        </body>
-        </html>
-        """
-
-        msg.attach(MIMEText(html, "html"))
-
-        # Send email
-        context = ssl.create_default_context()
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
-            server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-            server.send_message(msg)
-
-        return True
-    except Exception as e:
-        print("Email sending failed:", e)
-        return False
-
-
 # ---------------------------
 # MUST be the very first Streamlit command
 # ---------------------------
@@ -464,8 +431,8 @@ def signup_user_with_email(username: str, password: str, email: str) -> (bool, s
         else:
             return True, "Account created but failed to send verification email (check SMTP settings)."
     else:
-        # show code in UI if no SMTP configured (for development)
-        return True, f"Account created. Verification code (dev): {code}"
+        return False, "Email service is not configured. Contact admin."
+
 
 def login_user(identifier: str, password: str):
     cur = c.execute("SELECT username, password, email_verified FROM users WHERE username=? OR email=?", (identifier, identifier))
